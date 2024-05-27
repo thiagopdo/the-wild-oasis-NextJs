@@ -42,6 +42,7 @@ export default function Page() {
           src={image1}
           alt="Family sitting around a fire pit in front of cabin"
           placeholder="blur"
+          quality={80}
         />
       </div>
 
