@@ -1,3 +1,7 @@
+import Image from "next/image";
+import image1 from "@/public/about-1.jpg";
+import image2 from "@/public/about-2.jpg";
+
 export const metadata = {
   title: "About Page",
 };
@@ -32,15 +36,23 @@ export default function Page() {
         </div>
       </div>
 
+      {/* Static image import */}
       <div className="col-span-2">
-        <img
-          src="/about-1.jpg"
+        <Image
+          src={image1}
           alt="Family sitting around a fire pit in front of cabin"
+          placeholder="blur"
         />
       </div>
 
-      <div className="col-span-2">
-        <img src="/about-2.jpg" alt="Family that manages The Wild Oasis" />
+      {/* exemple of receveing an image from a database instead of static import */}
+      <div className="relative col-span-2 aspect-square">
+        <Image
+          src="/about-2.jpg"
+          fill
+          className="object-cover"
+          alt="Family that manages The Wild Oasis"
+        />
       </div>
 
       <div className="col-span-3">
