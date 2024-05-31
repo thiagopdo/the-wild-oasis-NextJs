@@ -1,12 +1,20 @@
 import Image from "next/image";
 import image1 from "@/public/about-1.jpg";
 import image2 from "@/public/about-2.jpg";
+import { getCabins } from "../_lib/data-service";
+
+export const revalidate = 86000;
 
 export const metadata = {
   title: "About Page",
 };
 
-export default function Page() {
+
+
+export default async function Page() {
+
+  const cabins = await getCabins()
+
   return (
     <div className="grid grid-cols-5 items-center gap-x-24 gap-y-32 text-lg">
       <div className="col-span-3">
@@ -23,7 +31,7 @@ export default function Page() {
             and enjoying simple pleasures with family.
           </p>
           <p>
-            Our 8 luxury cabins provide a cozy base, but the real freedom and
+            Our {cabins.length} luxury cabins provide a cozy base, but the real freedom and
             peace you&apos;ll find in the surrounding mountains. Wander through
             lush forests, breathe in the fresh air, and watch the stars twinkle
             above from the warmth of a campfire or your hot tub.
@@ -47,7 +55,8 @@ export default function Page() {
       </div>
 
       {/* exemple of receveing an image from a database instead of static import */}
-      <div className="relative col-span-2 aspect-square">
+      <div className="relative col-span-2 aspect-square">import { revalidate } from './../cabins/page';
+
         <Image
           src="/about-2.jpg"
           fill
