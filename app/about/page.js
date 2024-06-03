@@ -3,7 +3,7 @@ import image1 from "@/public/about-1.jpg";
 import image2 from "@/public/about-2.jpg";
 import { getCabins } from "../_lib/data-service";
 
-export const revalidate = 86000;
+export const revalidate = 86_000;
 
 export const metadata = {
   title: "About Page",
@@ -55,7 +55,7 @@ export default async function Page() {
       </div>
 
       {/* exemple of receveing an image from a database instead of static import */}
-      <div className="relative col-span-2 aspect-square">import { revalidate } from './../cabins/page';
+      <div className="relative col-span-2 aspect-square">
 
         <Image
           src="/about-2.jpg"
