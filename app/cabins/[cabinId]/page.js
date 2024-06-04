@@ -1,8 +1,8 @@
 import { getCabin } from "@/app/_lib/data-service";
-import { getCabins } from "./../../_lib/data-service";
+import { getCabins } from "@/app/_lib/data-service";
+import TextExpander from "@/app/_components/TextExpander";
 import Image from "next/image";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
-import TextExpander from "@/app/_components/TextExpander";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
