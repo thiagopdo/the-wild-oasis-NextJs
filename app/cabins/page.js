@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 
-export const revalidate = 3600; //turning this page dynamic
+//export const revalidate = 3600; //turning this page dynamic
 
 export const metadata = {
   title: "Cabins",
