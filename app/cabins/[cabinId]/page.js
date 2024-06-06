@@ -1,8 +1,11 @@
-import { getCabin } from "@/app/_lib/data-service";
-import { getCabins } from "@/app/_lib/data-service";
 import TextExpander from "@/app/_components/TextExpander";
-import Image from "next/image";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+
+import Reservation from "@/app/_components/Reservation";
+import Spinner from "@/app/_components/Spinner";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
@@ -18,7 +21,10 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
+  //blocking waterfall, one fetch per time, thus blocking the next one
   const cabin = await getCabin(params.cabinId);
+  // const settints = await getSettings();
+  // const bookedDates = await getBookedDatesByCabinId(params.cabinId);
 
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
@@ -56,7 +62,7 @@ export default async function Page({ params }) {
               <MapPinIcon className="h-5 w-5 text-primary-600" />
               <span className="text-lg">
                 Located in the heart of the
-                <span className="font-bold">Dolomites</span> (Italy)
+                <span className="font-bold"> Dolomites</span> (Italy)
               </span>
             </li>
             <li className="flex items-center gap-3">
@@ -70,9 +76,12 @@ export default async function Page({ params }) {
       </div>
 
       <div>
-        <h2 className="text-center text-5xl font-semibold">
-          Reserve today. Pay on arrival.
+        <h2 className="mb-10 text-center text-5xl font-semibold text-accent-400">
+          Reserve {name} today. Pay on arrival.
         </h2>
+        <Suspense fallback={<Spinner />}>
+          <Reservation cabin={cabin} />
+        </Suspense>
       </div>
     </div>
   );
