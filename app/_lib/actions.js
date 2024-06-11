@@ -36,7 +36,7 @@ export async function deleteReservation(bookingId) {
   const guestBookings = await getBookings(session.user.guestId);
   const guestBookingsIds = guestBookings.map((booking) => booking.id);
 
-  if (guestBookingsIds.includes(bookingId))
+  if (!guestBookingsIds.includes(bookingId))
     throw new Error("You are not allowed to delete this booking");
 
   const { error } = await supabase
