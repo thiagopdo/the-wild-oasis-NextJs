@@ -1,3 +1,4 @@
+import { updateBooking } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
 
 export default async function Page({ params }) {
@@ -11,7 +12,9 @@ export default async function Page({ params }) {
         Edit Reservation #{bookingId}
       </h2>
 
-      <form className="flex flex-col gap-6 bg-primary-900 px-12 py-8 text-lg">
+      <form action={updateBooking} className="flex flex-col gap-6 bg-primary-900 px-12 py-8 text-lg">
+
+        <input type="hidden" value={bookingId} name="bookingId" />
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select

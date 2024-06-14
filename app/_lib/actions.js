@@ -49,6 +49,33 @@ export async function deleteReservation(bookingId) {
   revalidatePath("/account/reservations");
 }
 
+export async function updateBooking(formData) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error("You are not allowed to delete this booking");
+
+  const updateData = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  const { error } = await supabase
+    .from("bookings")
+    .update(updatedFields)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Booking could not be updated");
+  }
+}
+
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
 }
